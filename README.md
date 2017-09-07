@@ -1,4 +1,5 @@
-###Usage
+Usage
+=====
 
 ``` javascript
   let oauthValidator = new OauthValidator({
