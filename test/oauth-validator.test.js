@@ -21,7 +21,7 @@ describe('OauthValidator', function() {
     });
   });
 
-  describe('.getIdentity', () => {
+  describe('._getIdentity', () => {
     let qq = 'callback( {"client_id": "1234", "openid": "111111"} );';
     let wechat = { openid: '222222' };
     let weibo = { uid: '333333' };
@@ -32,25 +32,25 @@ describe('OauthValidator', function() {
 
     it('returns uid when login with weibo', () => {
       this.oauthValidator.service = 'weibo';
-      expect(this.oauthValidator.getIdentity(weibo)).to.eql('333333');
+      expect(this.oauthValidator._getIdentity(weibo)).to.eql('333333');
     });
 
     it('returns openid when login with qq', () => {
       this.oauthValidator.service = 'qq';
-      expect(this.oauthValidator.getIdentity(qq)).to.eql('111111');
+      expect(this.oauthValidator._getIdentity(qq)).to.eql('111111');
     });
 
     it('returns openid when login with wechat', () => {
       this.oauthValidator.service = 'wechat';
-      expect(this.oauthValidator.getIdentity(wechat)).to.eql('222222');
+      expect(this.oauthValidator._getIdentity(wechat)).to.eql('222222');
     });
 
     it('should return undefined when data is invalid', () => {
-      expect(this.oauthValidator.getIdentity({ xxx: 'wrong' })).to.eql(undefined);
+      expect(this.oauthValidator._getIdentity({ xxx: 'wrong' })).to.eql(undefined);
     });
   });
 
-  describe('.getEndpoint', () => {
+  describe('._getEndpoint', () => {
     [
       { service: 'wechat', endpoint: OauthValidator.WECHAT_ENDPOINT },
       { service: 'qq', endpoint: OauthValidator.QQ_ENDPOINT },
@@ -58,17 +58,17 @@ describe('OauthValidator', function() {
     ].forEach(data => {
       it(`should return ${data.service} endpoint with service ${data.service}`, () => {
         let oauthValidator = new OauthValidator({ service: data.service });
-        expect(oauthValidator.getEndpoint()).to.eql(data.endpoint);
+        expect(oauthValidator._getEndpoint()).to.eql(data.endpoint);
       });
     });
 
     it('should return undefined when service is unknown', () => {
       let oauthValidator = new OauthValidator({ service: 'xxx' });
-      expect(oauthValidator.getEndpoint()).to.eql(undefined);
+      expect(oauthValidator._getEndpoint()).to.eql(undefined);
     });
   });
 
-  describe('.buildOptions', () => {
+  describe('._buildOptions', () => {
     [
       {
         service: 'weibo',
@@ -105,7 +105,7 @@ describe('OauthValidator', function() {
       it(`build options for ${data.service}`, () => {
         let oauthValidator = new OauthValidator({ service: data.service });
         if (data.service === 'wechat') oauthValidator.appid = data.options.qs.appid;
-        oauthValidator.buildOptions(data.token);
+        oauthValidator._buildOptions(data.token);
         expect(oauthValidator.options).to.eql(data.options);
       });
     });

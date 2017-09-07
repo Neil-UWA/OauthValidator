@@ -9,7 +9,7 @@ function OauthValidator(config) {
   this.options = { json: true };
 }
 
-OauthValidator.prototype.getIdentity = function(data) {
+OauthValidator.prototype._getIdentity = function(data) {
   let identity = undefined;
 
   try {
@@ -21,11 +21,11 @@ OauthValidator.prototype.getIdentity = function(data) {
 };
 
 OauthValidator.prototype.validate = function(token, expectedIdentity) {
-  this.buildOptions(token);
+  this._buildOptions(token);
   let method = this.service === 'weibo' ? 'postAsync' : 'getAsync';
 
   return request[method](this.options).spread((res, body) => {
-    const identity = this.getIdentity(body);
+    const identity = this._getIdentity(body);
 
     //weibo uid is number there for use `==` rather than `===`
     if (identity) {
@@ -36,7 +36,7 @@ OauthValidator.prototype.validate = function(token, expectedIdentity) {
   });
 };
 
-OauthValidator.prototype.getEndpoint = function() {
+OauthValidator.prototype._getEndpoint = function() {
   switch (this.service) {
     case 'qq':
       return OauthValidator.QQ_ENDPOINT;
@@ -49,8 +49,8 @@ OauthValidator.prototype.getEndpoint = function() {
   }
 };
 
-OauthValidator.prototype.buildOptions = function(token) {
-  this.options.uri = this.getEndpoint();
+OauthValidator.prototype._buildOptions = function(token) {
+  this.options.uri = this._getEndpoint();
   switch (this.service) {
     case 'weibo':
       this.options.form = { access_token: token };
