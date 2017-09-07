@@ -117,7 +117,7 @@ describe('OauthValidator', function() {
 
     context('login with weibo', () => {
       beforeEach(() => {
-        postStub = sinon.stub(request, 'postAsync').returns(Promise.resolve([{}, { uid: 123 }]));
+        postStub = sinon.stub(request, 'postAsync').returns(Promise.resolve({body: { uid: 123 }}));
       });
 
       afterEach(() => postStub.restore());
@@ -147,7 +147,7 @@ describe('OauthValidator', function() {
 
     context('login with wechat', () => {
       beforeEach(() => {
-        getStub = sinon.stub(request, 'getAsync').returns(Promise.resolve([{}, { openid: 'xxxx' }]));
+        getStub = sinon.stub(request, 'getAsync').returns(Promise.resolve({body: { openid: 'xxxx' }}));
       });
 
       afterEach(() => getStub.restore());
@@ -177,7 +177,7 @@ describe('OauthValidator', function() {
 
     context('login with qq', () => {
       beforeEach(() => {
-        getStub = sinon.stub(request, 'getAsync').returns(Promise.resolve([{}, { openid: 'yyyy' }]));
+        getStub = sinon.stub(request, 'getAsync').returns(Promise.resolve({ body: { openid: 'yyyy' }}));
       });
 
       afterEach(() => getStub.restore());

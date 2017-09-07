@@ -30,7 +30,8 @@ OauthValidator.prototype.validate = function(token, expectedIdentity) {
   this._buildOptions(token);
   let method = this.service === 'weibo' ? 'postAsync' : 'getAsync';
 
-  return request[method](this.options).spread((res, body) => {
+  return request[method](this.options).then((res) => {
+    let body = res.body;
     const identity = this._getIdentity(body);
 
     //weibo uid is number there for use `==` rather than `===`
