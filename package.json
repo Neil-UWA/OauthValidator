@@ -1,6 +1,6 @@
 {
   "name": "oauth-validator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "server-side validating wechat, weibo,qq oauthentication",
   "main": "oauth-validator.js",
   "scripts": {
