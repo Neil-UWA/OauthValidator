@@ -2,6 +2,12 @@
 let Promise = require('bluebird');
 let request = Promise.promisifyAll(require('request'));
 
+/*
+ * constructor
+ * @param {Object} config
+ * @param {string} config.service: available values: [weibo, wechat, qq]
+ * @param {string} config.appid : pass appid when service is wechat
+ */
 function OauthValidator(config) {
   config = config || {};
   this.service = config.service;
