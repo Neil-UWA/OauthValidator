@@ -1,3 +1,7 @@
+Feature
+=====
+validate user's wechat, qq, weibo identity
+
 Usage
 =====
 
